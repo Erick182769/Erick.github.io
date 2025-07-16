@@ -238,10 +238,17 @@
       Con todo lo que aún siento por ti<br>Tú Babas Alexis💙
     </div>
   </main>
-  <audio id="musica" loop>
-    <source src="wildflower.mp3" type="audio/mpeg">
-    Tu navegador no soporta audio HTML5.
+  
+  <audio id="audio1">
+  <source src="Marvel.mp3" type="audio/mpeg">
+  Tu navegador no soporta audio HTML5.
   </audio>
+
+  <audio id="audio2">
+  <source src="Billie.mp3" type="audio/mpeg">
+  Tu navegador no soporta audio HTML5.
+  </audio>
+
   
   <button id="controlMusica" style="
     position: fixed;
@@ -260,27 +267,44 @@
   </button>
   
   <script>
-    const audio = document.getElementById("musica");
-    const boton = document.getElementById("controlMusica");
+  const audio1 = document.getElementById("audio1");
+  const audio2 = document.getElementById("audio2");
+  const boton = document.getElementById("controlMusica");
 
-    let iniciado = false;
-    
-    boton.addEventListener("click", () => {
-     if (!iniciado) {
-      audio.play();
+  let iniciado = false;
+  let enPausa = false;
+
+  audio1.addEventListener("ended", () => {
+    audio2.play();
+  });
+
+  boton.addEventListener("click", () => {
+    if (!iniciado) {
+      audio1.play();
       iniciado = true;
       boton.textContent = "⏸ Pausar música";
       return;
     }
-    if (audio.paused) {
-      audio.play();
-      boton.textContent = "⏸ Pausar música";
-    } else {
-      audio.pause();
+
+    if (!enPausa) {
+      audio1.pause();
+      audio2.pause();
+      enPausa = true;
       boton.textContent = "▶️ Reproducir música";
+    } else {
+      if (audio1.ended) {
+        audio2.play();
+      } else if (audio1.paused) {
+        audio1.play();
+      } else {
+        audio2.play();
+      }
+      enPausa = false;
+      boton.textContent = "⏸ Pausar música";
     }
   });
 </script>
+  
   <div style="text-align: center; margin-top: 3rem;">
     <button id="perdonBtn" style="
       background-color: #a14d60;
