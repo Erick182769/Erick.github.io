@@ -238,7 +238,7 @@
       Con todo lo que aún siento por ti<br>Tú Babas Alexis💙
     </div>
   </main>
-  <audio id="musica" autoplay loop>
+  <audio id="musica" loop>
     <source src="wildflower.mp3" type="audio/mpeg">
     Tu navegador no soporta audio HTML5.
   </audio>
@@ -262,17 +262,25 @@
   <script>
     const audio = document.getElementById("musica");
     const boton = document.getElementById("controlMusica");
-  
+
+    let iniciado = false;
+    
     boton.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        boton.textContent = "⏸ Pausar música";
-      } else {
-        audio.pause();
-        boton.textContent = "▶️ Reproducir música";
-      }
-    });
-  </script>
+     if (!iniciado) {
+      audio.play();
+      iniciado = true;
+      boton.textContent = "⏸ Pausar música";
+      return;
+    }
+    if (audio.paused) {
+      audio.play();
+      boton.textContent = "⏸ Pausar música";
+    } else {
+      audio.pause();
+      boton.textContent = "▶️ Reproducir música";
+    }
+  });
+</script>
   <div style="text-align: center; margin-top: 3rem;">
     <button id="perdonBtn" style="
       background-color: #a14d60;
