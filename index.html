@@ -239,67 +239,46 @@
     </div>
   </main>
   
-  <audio id="audio2">
+  <audio id="audio1" loop>
   <source src="Night.mp3" type="audio/mpeg">
   Tu navegador no soporta audio HTML5.
-  </audio>
+</audio>
 
-  
-  <button id="controlMusica" style="
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #b85c75;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-family: 'Josefin Sans', sans-serif;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  ">
-    ⏸ Pausar música
-  </button>
-  
-  <script>
+<button id="controlMusica" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #b85c75;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-family: 'Josefin Sans', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+">
+  ▶️ Reproducir música
+</button>
+
+<script>
   const audio1 = document.getElementById("audio1");
-  const audio2 = document.getElementById("audio2");
   const boton = document.getElementById("controlMusica");
 
-  let iniciado = false;
-  let enPausa = false;
-
-  audio1.addEventListener("ended", () => {
-    audio2.play();
-  });
+  let enPausa = true;
 
   boton.addEventListener("click", () => {
-    if (!iniciado) {
+    if (enPausa) {
       audio1.play();
-      iniciado = true;
-      boton.textContent = "⏸ Pausar música";
-      return;
-    }
-
-    if (!enPausa) {
-      audio1.pause();
-      audio2.pause();
-      enPausa = true;
-      boton.textContent = "▶️ Reproducir música";
-    } else {
-      if (audio1.ended) {
-        audio2.play();
-      } else if (audio1.paused) {
-        audio1.play();
-      } else {
-        audio2.play();
-      }
       enPausa = false;
       boton.textContent = "⏸ Pausar música";
+    } else {
+      audio1.pause();
+      enPausa = true;
+      boton.textContent = "▶️ Reproducir música";
     }
   });
 </script>
-  
+
   <div style="text-align: center; margin-top: 3rem;">
     <button id="perdonBtn" style="
       background-color: #a14d60;
